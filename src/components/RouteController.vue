@@ -4,7 +4,7 @@
       <div class="container white--bg">
         <MainRoute
           v-if="route === 'home'"
-          @change-route="newRoute: (string) => setRoute(newRoute);"
+          @change-route="newRoute => setRoute(newRoute)"
         />
         <SingleGame
           v-else-if="route === 'singleGame'"
