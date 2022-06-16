@@ -23,14 +23,21 @@
     <div class="record">
       <div v-if="maxPoints > 0" class="active">
         <span class="points">
-          <w-icon class="mr2">fa fa-certificate</w-icon><span>Máxima puntuación:
-          {{ maxPoints }}</span>
+          <w-icon class="mr2">fa fa-certificate</w-icon
+          ><span>Máxima puntuación: {{ maxPoints }}</span>
         </span>
         <span class="games">En un total de {{ tries.length }} partidas</span>
       </div>
-      <div v-else class="inactive">
+      <button
+        v-else
+        class="inactive"
+        @click="$emit('changeRoute', 'singleGame')"
+      >
         <span class="points"> Todavía no tienes ningún récord </span>
-      </div>
+        <span class="points">
+          Haz clic aquí para iniciar tu primera partida
+        </span>
+      </button>
     </div>
   </div>
 </template>
@@ -73,6 +80,7 @@ export default {
 
 <style scoped lang="scss">
 .main-route {
+  position: relative;
   height: 100%;
 }
 .option-card-blue {
@@ -93,16 +101,20 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  bottom: 10px;
+  bottom: 20px;
   border-radius: 1.5rem;
   background: rgb(188, 191, 0);
   background: linear-gradient(0deg, rgb(191, 146, 0) 0%, rgb(255, 187, 0) 100%);
   padding: 1rem;
-  color: rgb(255, 255, 255);
-  .active {
+  .active,
+  .inactive {
+    width: 100%;
+    background: transparent;
+    border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: rgb(255, 255, 255);
     .points {
       font-size: 20px;
       display: flex;

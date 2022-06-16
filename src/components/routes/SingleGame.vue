@@ -52,16 +52,10 @@
       >
     </div>
     <div class="floating-actions">
-      <w-button bg-color="error" class="sh4" round xl @click="eraseWord"
+      <w-button class="sh4 cancel-button red-light1" round xl @click="eraseWord"
         ><w-icon class="mr1">fa fa-trash</w-icon>Vaciar</w-button
       >
-      <w-button
-        bg-color="success"
-        class="sh4"
-        round
-        xl
-        @click="checkWord"
-        :disabled="isDisabled()"
+      <w-button class="sh4 send-button" round xl @click="checkWord" :disabled="isDisabled()"
         >Aceptar<w-icon class="ml1">wi-check</w-icon></w-button
       >
     </div>
@@ -93,13 +87,11 @@
         </p>
       </w-flex>
       <w-flex class="pa6" gap="4">
-        <w-button bg-color="error" class="sh4" round lg @click="$emit('goBack')"
+        <w-button class="sh4 cancel-button red-light1" round lg @click="$emit('goBack')"
           ><w-icon class="mr1">fa fa-home</w-icon>Inicio</w-button
         >
         <w-button
-          bg-color="blue"
-          color="white"
-          class="sh4"
+          class="sh4 send-button"
           round
           lg
           @click="resetGame"
@@ -414,5 +406,12 @@ export default {
   display: flex;
   justify-content: space-evenly;
   padding: 2rem 0rem;
+}
+
+.cancel-button {
+  background-color: transparent;
+}
+.send-button {
+  background-color: rgb(37, 70, 160);
 }
 </style>
