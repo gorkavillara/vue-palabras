@@ -1,5 +1,5 @@
 <template>
-  <div class="pa0">
+  <div class="pa0 single-game">
     <w-button
       color="white"
       bg-color="transparent"
@@ -159,7 +159,7 @@ export default {
     // ConfettiExplosion,
   },
   setup() {
-    const TOTALTIME: number = 10;
+    const TOTALTIME: number = 30;
 
     const gameOver = ref<boolean>(false);
     const time = ref<number>(TOTALTIME);
@@ -252,8 +252,8 @@ export default {
     };
 
     const isDisabled = () => {
-      if (word.value.length < 3 || word.value.length > 5) return true
-    }
+      if (word.value.length < 3 || word.value.length > 5) return true;
+    };
 
     const resetGame = () => {
       tries.value = [];
@@ -276,11 +276,8 @@ export default {
       return selectedChars;
     };
 
-    const eraseLastLetter = () => {
-      console.log(word.value)
-      console.log(word.value.length)
-      word.value = word.value.substr(0, word.value.length - 1)
-    }
+    const eraseLastLetter = () =>
+      (word.value = word.value.substr(0, word.value.length - 1));
 
     return {
       points,
@@ -295,16 +292,19 @@ export default {
       resetGame,
       maxPoints,
       eraseLastLetter,
-      isDisabled
+      isDisabled,
     };
   },
 };
 </script>
 
 <style scoped lang="scss">
+.single-game {
+  height: 100%;
+}
 .header {
-  position: absolute;
-  top: 0;
+  position: relative;
+  top: -50px;
   left: 0;
   background: rgb(0, 51, 129);
   background: linear-gradient(
@@ -321,11 +321,12 @@ export default {
 
 .score {
   width: 90%;
-  height: 40%;
+  height: 40vh;
   border-radius: 1.5rem;
   background: white;
-  position: absolute;
-  top: 150px;
+  position: relative;
+  z-index: 10;
+  top: -100px;
   left: 50%;
   transform: translateX(-50%);
   padding: 1.5rem;
@@ -394,8 +395,9 @@ export default {
 }
 
 .letters {
-  position: absolute;
-  top: calc(150px + 0.4 * 100vh);
+  position: relative;
+  // top: calc(150px + 0.4 * 100vh);
+  bottom: 100px;
   width: 100%;
   height: calc(90vh - 150px - 0.4 * 100vh);
   padding: 4rem;
@@ -405,9 +407,10 @@ export default {
 }
 
 .floating-actions {
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  bottom: 100px;
   width: 100%;
+  height: 80px;
   display: flex;
   justify-content: space-evenly;
   padding: 2rem 0rem;

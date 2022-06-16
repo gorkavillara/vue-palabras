@@ -4,7 +4,7 @@
       <div class="container white--bg">
         <MainRoute
           v-if="route === 'home'"
-          @change-route="newRoute => setRoute(newRoute)"
+          @change-route="(newRoute) => setRoute(newRoute)"
         />
         <SingleGame
           v-else-if="route === 'singleGame'"
@@ -38,3 +38,19 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.container {
+    max-height: 100vh;
+}
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 601px) {
+  .container {
+    width: 600px;
+  }
+}
+</style>

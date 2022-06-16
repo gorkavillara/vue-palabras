@@ -38,15 +38,6 @@ import RouteController from "./components/RouteController.vue";
 }
 #app {
   font-family: 'SFPro', sans-serif;
-}
-@media (max-width: 600px) {
-  .container {
-    width: 100%;
-  }
-}
-@media (min-width: 601px) {
-  .container {
-    width: 600px;
-  }
+  height: 100vh;
 }
 </style>
