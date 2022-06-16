@@ -55,7 +55,13 @@
       <w-button bg-color="error" class="sh4" round xl @click="eraseWord"
         ><w-icon class="mr1">fa fa-trash</w-icon>Vaciar</w-button
       >
-      <w-button bg-color="success" class="sh4" round xl @click="checkWord" :disabled="isDisabled()"
+      <w-button
+        bg-color="success"
+        class="sh4"
+        round
+        xl
+        @click="checkWord"
+        :disabled="isDisabled()"
         >Aceptar<w-icon class="ml1">wi-check</w-icon></w-button
       >
     </div>
