@@ -5,12 +5,26 @@
         <MainRoute
           v-if="route === 'home'"
           @change-route="(newRoute) => setRoute(newRoute)"
+          @add-user="userDialogOpen = true"
         />
         <SingleGame
           v-else-if="route === 'singleGame'"
           @go-back="setRoute('home')"
         />
       </div>
+      <w-dialog v-model="userDialogOpen" title="Introduce tu usuario">
+        <w-flex column gap="5">
+          <w-input
+            class="mb1"
+            label="Tu nombre de usuario"
+            v-model="username"
+            round
+            lg
+          >
+          </w-input>
+          <w-button @click="addUser" xl>Aceptar <w-icon class="ml4">fa fa-arrow-right</w-icon></w-button>
+        </w-flex>
+      </w-dialog>
     </w-flex>
   </w-app>
 </template>
@@ -26,14 +40,27 @@ export default defineComponent({
   },
   setup() {
     const route = ref<string>("");
+    const userDialogOpen = ref<boolean>(false);
+    const username = ref<string>("");
 
-    onMounted(() => (route.value = "home"));
+    onMounted(() => {
+      route.value = "home"
+      const storedUsername = localStorage.getItem('username')
+      username.value = storedUsername ? storedUsername : ""
+  })
 
     const setRoute = (newRoute: string) => (route.value = newRoute);
 
+    const addUser = () => {
+      localStorage.setItem('username', username.value);
+    };
+
     return {
+      userDialogOpen,
       route,
       setRoute,
+      addUser,
+      username,
     };
   },
 });
@@ -41,7 +68,7 @@ export default defineComponent({
 
 <style>
 .container {
-    max-height: 100vh;
+  max-height: 100vh;
 }
 @media (max-width: 600px) {
   .container {

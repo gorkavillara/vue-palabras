@@ -11,7 +11,12 @@
     >
     <w-flex column class="header justify-center align-center">
       <div class="white title1 text-center">Puntuación: {{ points }}</div>
-      <div class="white mt4">Tiempo restante: {{ time }} seg</div>
+      <div
+        class="white mt4 animate__heartBeat animate__infinite"
+        :class="{ animate__animated: time < 10 && time > 0 }"
+      >
+        Tiempo restante: {{ time }} seg
+      </div>
     </w-flex>
     <w-flex column class="score">
       <div class="overlay"></div>
@@ -55,7 +60,12 @@
       <w-button class="sh4 cancel-button red-light1" round xl @click="eraseWord"
         ><w-icon class="mr1">fa fa-trash</w-icon>Vaciar</w-button
       >
-      <w-button class="sh4 send-button" round xl @click="checkWord" :disabled="isDisabled()"
+      <w-button
+        class="sh4 send-button"
+        round
+        xl
+        @click="checkWord"
+        :disabled="isDisabled()"
         >Aceptar<w-icon class="ml1">wi-check</w-icon></w-button
       >
     </div>
@@ -66,7 +76,11 @@
       <w-flex column align-center gap="5" v-if="points > maxPoints">
         <h1>¡Enhorabuena!</h1>
         <p class="text-center">Has conseguido superar tu récord con...</p>
-        <p class="text-center max-points">{{ points }} puntos</p>
+        <p
+          class="text-center max-points animate__animated animate__bounceInRight"
+        >
+          {{ points }} puntos
+        </p>
         <p>
           {{
             maxPoints !== 0
@@ -77,7 +91,9 @@
       </w-flex>
       <w-flex column align-center gap="5" v-else>
         <p class="mt4 text-center">Tu puntuación es de</p>
-        <p class="text-center max-points-red">{{ points }} puntos</p>
+        <p class="text-center max-points-red animate__animated animate__shakeX">
+          {{ points }} puntos
+        </p>
         <p class="caption">
           {{
             maxPoints !== 0
@@ -87,14 +103,14 @@
         </p>
       </w-flex>
       <w-flex class="pa6" gap="4">
-        <w-button class="sh4 cancel-button red-light1" round lg @click="$emit('goBack')"
-          ><w-icon class="mr1">fa fa-home</w-icon>Inicio</w-button
-        >
         <w-button
-          class="sh4 send-button"
+          class="sh4 cancel-button red-light1"
           round
           lg
-          @click="resetGame"
+          @click="$emit('goBack')"
+          ><w-icon class="mr1">fa fa-home</w-icon>Inicio</w-button
+        >
+        <w-button class="sh4 send-button" round lg @click="resetGame"
           >Repetir<w-icon class="ml1" xs>fa fa-refresh</w-icon></w-button
         >
       </w-flex>
@@ -151,7 +167,7 @@ export default {
     // ConfettiExplosion,
   },
   setup() {
-    const TOTALTIME: number = 30;
+    const TOTALTIME: number = 40;
 
     const gameOver = ref<boolean>(false);
     const time = ref<number>(TOTALTIME);
@@ -248,6 +264,7 @@ export default {
     };
 
     const resetGame = () => {
+      points.value = 0;
       tries.value = [];
       word.value = "";
       time.value = TOTALTIME;

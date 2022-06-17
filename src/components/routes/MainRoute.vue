@@ -2,25 +2,32 @@
   <div class="pa6 main-route">
     <h1 class="title1 text-left text-bold mb6">Palabras</h1>
     <w-flex column class="align-center" gap="3">
-      <button
-        class="option-card-blue sh2"
-        @click="$emit('changeRoute', 'singleGame')"
-      >
-        <w-flex class="justify-space-between">
-          <w-flex column class="justify-space-between text-left pl6">
-            <h2 class="white title2">Juego rápido</h2>
-            <p class="white body">Practica tus habilidades</p>
-          </w-flex>
-          <w-image
-            src="img/Rectangle.png"
-            :height="100"
-            :width="100"
-            transition="fade"
-          ></w-image>
-        </w-flex>
-      </button>
+      <GameButton
+        @change-route="$emit('changeRoute', 'singleGame')"
+        :delay="0"
+        color="blue"
+        image_url="img/Solo.png"
+        title="Juego Rápido"
+        description="Practica tus habilidades"
+      />
+      <!-- <GameButton
+        @change-route="$emit('addUser')"
+        :delay="1"
+        color="purple"
+        image_url="img/Online.png"
+        title="Duelo Online"
+        description="Demuestra al mundo quién es mejor"
+      /> -->
+      <GameButton
+        @change-route="$emit('changeRoute', 'singleGame')"
+        :delay="1"
+        color="purple"
+        image_url="img/Online.png"
+        title="Duelo Online"
+        description="Demuestra al mundo quién es mejor"
+      />
     </w-flex>
-    <div class="record">
+    <div class="animate__animated animate__fadeIn animate__delay-1s record">
       <div v-if="maxPoints > 0" class="active">
         <span class="points">
           <w-icon class="mr2">fa fa-certificate</w-icon
@@ -44,6 +51,7 @@
 
 <script lang="ts">
 import { onMounted, ref } from "@vue/runtime-core";
+import GameButton from "../buttons/GameButton.vue";
 
 type Try = {
   id: number;
@@ -60,6 +68,9 @@ type StoredTry = {
 };
 
 export default {
+  components: {
+    GameButton,
+  },
   setup() {
     const tries = ref<StoredTry[]>([]);
     const maxPoints = ref<number>(0);
