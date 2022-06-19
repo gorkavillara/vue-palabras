@@ -20,16 +20,18 @@
     </w-flex>
     <w-flex column class="score">
       <div class="overlay"></div>
-      <w-flex column class="tries justify-end pb4" v-if="tries.length">
-        <div
-          class="try"
-          v-for="tr in tries"
-          :class="{ correct: tr.correct, incorrect: !tr.correct }"
-          :key="tr.id"
-        >
-          <span class="text">{{ tr.word }}</span>
-          <span class="points">+{{ tr.points }}</span>
-        </div>
+      <w-flex column class="tries justify-end pb4">
+        <TransitionGroup class="tries-list" name="list" tag="div">
+          <li
+            class="try"
+            v-for="tr in tries"
+            :class="{ correct: tr.correct, incorrect: !tr.correct }"
+            :key="tr.id"
+          >
+            <span class="text">{{ tr.word }}</span>
+            <span class="points">+{{ tr.points }}</span>
+          </li>
+        </TransitionGroup>
       </w-flex>
       <span class="current-word" :class="{ placeholder: word === '' }">{{
         word === "" ? "Escribe algo..." : word
@@ -120,7 +122,7 @@
 
 <script lang="ts">
 // import ConfettiExplosion from "vue-confetti-explosion";
-import { ref, onMounted, watch, onUnmounted } from "vue";
+import { ref, onMounted, watch, onUnmounted, TransitionGroup } from "vue";
 import { dicc } from "../../utils/dicc.js";
 
 const vowels = ["A", "E", "I", "O", "U"];
@@ -165,6 +167,7 @@ type StoredTry = {
 export default {
   components: {
     // ConfettiExplosion,
+    TransitionGroup,
   },
   setup() {
     const TOTALTIME: number = 40;
@@ -308,6 +311,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.tries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
 .single-game {
   height: 100%;
 }
